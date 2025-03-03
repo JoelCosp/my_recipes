@@ -19,6 +19,16 @@ const db = mysql.createConnection({
     database: "my_recipes",
 })
 
+app.get('/recipes', (req, res) => {
+    const sql = "SELECT * FROM recipes";
+    db.query(sql, (err, result) => {
+        if(err) {
+            res.json({message: "Server error"});
+        }
+        return res.json(result);
+    })
+})
+
 app.listen(port, () => {
     console.log("Listening to port: " + port);
 })
