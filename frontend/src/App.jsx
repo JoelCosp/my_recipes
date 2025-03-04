@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Recipes from './pages/Recipes';
 import Ingredients from './pages/Ingredients';
 import Surprise from './pages/Surprise';
+import Recipe from './pages/Recipe';
 import './App.css'
 
 import Nav from './components/Nav';
@@ -16,6 +17,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Recipes />} />
+          <Route path="/recipe/:id" element={<Recipe />} />
           <Route path="/ingredients" element={<Ingredients />} />
           <Route path="/surprise" element={<Surprise />} />
         </Routes>
