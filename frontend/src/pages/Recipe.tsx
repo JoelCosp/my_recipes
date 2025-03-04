@@ -34,16 +34,16 @@ const RecipePage = () => {  // Cambié el nombre del componente
             <img className='w-full h-full object-cover rounded-t-2xl rounded-b-2xl' src={recipe[0].img_url} alt="" />
           </div>
             <div>
-              <h3 className='font-bold uppercase text-2xl pb-5 mb-5 border-b-2 border-[#afafaf]'>{recipe[0].name}</h3>
+              <h3 className='font-bold uppercase text-2xl pb-5 text-[#212121] text-center sm:text-left'>{recipe[0].name}</h3>
               <p className='text-justify pb-5'>{recipe[0].description}</p>
               <p className='flex gap-2 pb-5'><ChefHat size={25} color={"#ffad4a"}/><b>NIVEL DE DIFICULTAD:</b> {recipe[0].difficulty}</p>
               <p className='flex gap-2'><Clock size={25} color={"#ffad4a"}/><b>DURACION:</b> {recipe[0].time} min</p>
             </div>
           </div>
-          <h4 className='font-bold uppercase text-xl py-5 border-b-1'>Ingredients:</h4>
-          <ul className='pt-5'>
+          <h4 className='font-bold text-xl py-5 border-b-1 border-[#c5c5c5] text-[#212121] text-center sm:text-left'>INGREDIENTES</h4>
+          <ul className='pt-5 px-5'>
             {recipeIngredients.map((ingredient, index) => (
-              <li key={index}>{ingredient.name}</li>
+              <li className='list-disc py-2' key={index}>{ingredient.name}</li>
             ))}
           </ul>
         </div>

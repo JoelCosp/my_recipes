@@ -66,7 +66,7 @@ app.get('/recipe/:id', (req, res) => {
 
 // OBTENER INGREDIENTES DE LA RECETA X
 app.get('/ingredients/:id', (req, res) => {
-    const sql = "SELECT ingredients.id, ingredients.name FROM `ingredients` JOIN recipes_ingredients ON ingredients.id = recipes_ingredients.ingredient_id WHERE recipes_ingredients.recipe_id = ?";
+    const sql = "SELECT * FROM `ingredients` JOIN recipes_ingredients ON ingredients.id = recipes_ingredients.ingredient_id WHERE recipes_ingredients.recipe_id = ?";
     db.query(sql, [req.params.id] , (err, result) => {
         if(err) {
             res.json({message: "Server error"});
