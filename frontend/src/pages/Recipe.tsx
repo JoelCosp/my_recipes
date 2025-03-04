@@ -24,13 +24,20 @@ const RecipePage = () => {  // Cambié el nombre del componente
   }, [params.id]); // Agregar dependencia para evitar problemas
 
   return (
-    <div>
+    <section>
       {recipe ? ( // Asegurarnos de que recipe no sea null antes de acceder a sus datos
-        <div>
-          <h1>NOMBRE DE LA RECETA: {recipe[0].name}</h1>
-          <p>{recipe.description}</p>
-          <h2>Ingredients:</h2>
-          <ul>
+        <div className='max-w-[1240px] mx-auto px-5'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
+            <img className='pb-5' src={recipe[0].img_url} alt="" />
+            <div>
+              <h3 className='font-bold uppercase text-2xl pb-5'>{recipe[0].name}</h3>
+              <p className='text-justify pb-5'>{recipe[0].description}</p>
+              <p>NIVEL DE DIFICULTAD: {recipe[0].difficulty}</p>
+              <p>DURACION: {recipe[0].time} min</p>
+            </div>
+          </div>
+          <h4 className='font-bold uppercase text-xl py-5 border-b-1'>Ingredients:</h4>
+          <ul className='pt-5'>
             {recipeIngredients.map((ingredient, index) => (
               <li key={index}>{ingredient.name}</li>
             ))}
@@ -39,7 +46,7 @@ const RecipePage = () => {  // Cambié el nombre del componente
       ) : (
         <p>Loading recipe...</p>
       )}
-    </div>
+    </section>
   );
 };
 

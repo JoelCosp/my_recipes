@@ -23,11 +23,10 @@ const Recipes = () => {
               <div className='pb-5 rounded-b-2xl bg-[#f9f9f9] hover:cursor-pointer' key={recipe.id}>
                 <img className='rounded-t-2xl pb-5' src={ recipe.img_url } alt="" />
                 <div className='px-5'>
-                  <div className='flex justify-between mb-3'>
+                  <div className='flex flex-wrap justify-between md:mb-3'>
                     <h3 className='text-lg font-bold'>{ recipe.name }</h3>
                     <p className='font-normal bg-[#ffad4a] px-2 rounded-2xl text-white font-semibold'>{ recipe.difficulty }</p>
                   </div>
-                  <p>{ recipe.description }</p>
                 </div>
               </div>
             </Link>
