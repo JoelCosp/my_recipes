@@ -19,6 +19,7 @@ const db = mysql.createConnection({
     database: "my_recipes",
 })
 
+// OBTENER RECETA
 app.get('/recipes', (req, res) => {
     const sql = "SELECT * FROM recipes";
     db.query(sql, (err, result) => {
@@ -29,8 +30,20 @@ app.get('/recipes', (req, res) => {
     })
 })
 
+// OBTENER RECETA RANDOM
 app.get('/random-recipe', (req, res) => {
     const sql = "SELECT * FROM recipes ORDER BY RAND() LIMIT 1;";
+    db.query(sql, (err, result) => {
+        if(err) {
+            res.json({message: "Server error"});
+        }
+        return res.json(result);
+    })
+})
+
+// OBTENER INGREDIENTES
+app.get('/ingredients', (req, res) => {
+    const sql = "SELECT * FROM ingredients";
     db.query(sql, (err, result) => {
         if(err) {
             res.json({message: "Server error"});
