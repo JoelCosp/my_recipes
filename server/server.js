@@ -75,6 +75,37 @@ app.get('/ingredients/:id', (req, res) => {
     })
 })
 
+// OBTENER CATEGORIAS
+app.get('/categories', (req, res) => {
+    const sql = "SELECT * FROM categories";
+    db.query(sql, (err, result) => {
+        if(err) {
+            res.json({message: "Server error"});
+        }
+        return res.json(result);
+    })
+})
+
+//CREAR receta
+app.post('/create-recipe', (req, res) => {
+
+    const name = req.body.name;
+    const description = req.body.description;
+    const time = req.body.time;
+    const difficulty = req.body.difficulty;
+    const img_url = req.body.img_url;
+    const category_id= req.body.category_id
+
+    const sql = "INSERT INTO `recipes`(`name`, `description`, `time`, `difficulty`, `img_url`, `category_id`) VALUES (?, ?, ?, ?, ?, ?)";
+
+    db.query(sql, [name , description, time, difficulty, img_url , category_id], (err, result) => {
+        if(err) {
+            return res.json({ message: "Server error", error: err });
+        }
+        res.json({ message: "Recipe created successfully", result });
+    });
+})
+
 app.listen(port, () => {
     console.log("Listening to port: " + port);
 })
