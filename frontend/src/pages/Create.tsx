@@ -16,6 +16,7 @@ const Create = () => {
         difficulty: '',
         img_url: '',
         category_id: '',
+        ingredients: [] as number[]
       });
 
     useEffect(() => {
@@ -32,6 +33,14 @@ const Create = () => {
         .catch(console.error);
     }, [])
 
+    const handleIngredientChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedIngredients = Array.from(e.target.selectedOptions, option => Number(option.value));        
+        setFormData(prev => ({
+            ...prev,
+            ingredients: selectedIngredients
+        }));
+    };
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -42,10 +51,8 @@ const Create = () => {
         try {
           const response = await axios.post('http://localhost:5000/create-recipe', formData);
           console.log('Form data submitted successfully:', response.data);
-          // You can add additional logic here, such as displaying a success message
         } catch (error) {
           console.error('Error submitting form data:', error);
-          // You can add error handling logic here, such as displaying an error message
         }
       };
 
@@ -78,11 +85,11 @@ const Create = () => {
                     </div>
                     <div>
                         <h3 className='text-xl text-[#212121] font-bold mb-5'>SELECCIONA LOS INGREDIENTES: </h3>
-                        <select className='outline-hidden' name="category_id" onChange={handleChange} multiple>
+                        <select id="ingredients" className='outline-hidden' name="ingredients" onChange={handleIngredientChange} multiple>
                             {
                                 ingredients.map((ingredient) => {
                                     return (
-                                        <option className='w-[400px] px-5 py-5 mb-5 outline-hidden' value={ingredient.id}>{ingredient.id}. {ingredient.name}</option>
+                                        <option key={ingredient.id} className='w-[400px] px-5 py-5 mb-5 outline-hidden' value={ingredient.id}>{ingredient.id}. {ingredient.name}</option>
                                     )
                                 })
                             }

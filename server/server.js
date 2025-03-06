@@ -94,16 +94,36 @@ app.post('/create-recipe', (req, res) => {
     const time = req.body.time;
     const difficulty = req.body.difficulty;
     const img_url = req.body.img_url;
-    const category_id= req.body.category_id
+    const category_id = req.body.category_id
+    const ingredients = req.body.ingredients
 
     const sql = "INSERT INTO `recipes`(`name`, `description`, `time`, `difficulty`, `img_url`, `category_id`) VALUES (?, ?, ?, ?, ?, ?)";
 
-    db.query(sql, [name , description, time, difficulty, img_url , category_id], (err, result) => {
-        if(err) {
-            return res.json({ message: "Server error", error: err });
+    db.query(sql, [name, description, time, difficulty, img_url, category_id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: "Server error", error: err });
         }
-        res.json({ message: "Recipe created successfully", result });
+
+        const recipeId = result.insertId; // Aquí obtenemos el ID de la receta creada
+
+        // Si no hay ingredientes, devolvemos la respuesta
+        if (!ingredients || ingredients.length === 0) {
+            return res.json({ message: "Recipe created successfully", recipeId });
+        }
+
+        // Insertar ingredientes en la tabla recipes_ingredients
+        const ingredientValues = ingredients.map(ingredientId => [recipeId, ingredientId]);
+        const sql2 = "INSERT INTO `recipes_ingredients`(`recipe_id`, `ingredient_id`) VALUES ?";
+
+        db.query(sql2, [ingredientValues], (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "Server error inserting ingredients", error: err });
+            }
+
+            res.json({ message: "Recipe and ingredients added successfully", recipeId });
+        });
     });
+   
 })
 
 app.listen(port, () => {
